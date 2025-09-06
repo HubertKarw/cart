@@ -12,5 +12,4 @@ import java.math.BigDecimal;
 public class CartCreateDTO {
     private String name;
     private String discountCode;
-    private BigDecimal price;
 }

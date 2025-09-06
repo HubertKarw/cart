@@ -1,5 +1,6 @@
 package com.hubertkarw.cart.client;
 
+import com.hubertkarw.cart.model.ProductClientCustomizationDTO;
 import com.hubertkarw.cart.model.ProductClientDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,4 +11,7 @@ public interface ProductClient {
 
     @GetMapping("/product/{id}")
     ProductClientDto getProductByID(@PathVariable long id);
+
+    @GetMapping("/customs/{id}")
+    ProductClientCustomizationDTO getCustomizationByID(@PathVariable long id);
 }
