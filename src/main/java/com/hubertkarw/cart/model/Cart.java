@@ -19,7 +19,7 @@ public class Cart {
     private Long id;
     private String name;
     private String discountCode;
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.ZERO;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "CART_ID")
     private List<CartItem> cartItems;

@@ -30,14 +30,8 @@ public class CartService {
 
     @Transactional
     public CartDTO createCart(CartCreateDTO cartCreateDTO) {
-        return mapper.toDTO(repository.save(mapper.toEntity(cartCreateDTO)));
-    }
 
-    @Transactional
-    public CartDTO updateCart(long id, CartCreateDTO customizationCreateDTO) {
-        Cart cart = repository.findById(id)
-                .orElseThrow(()->new CartAppException("cart not found", HttpStatus.NOT_FOUND));
-        return mapper.toDTO(repository.save(cart));
+        return mapper.toDTO(repository.save(mapper.toEntity(cartCreateDTO)));
     }
 
     public void deleteCart(long id) {

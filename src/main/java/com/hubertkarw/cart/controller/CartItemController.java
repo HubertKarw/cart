@@ -2,6 +2,7 @@ package com.hubertkarw.cart.controller;
 
 import com.hubertkarw.cart.model.CartDTO;
 import com.hubertkarw.cart.model.CartItem;
+import com.hubertkarw.cart.model.CartItemCreateDTO;
 import com.hubertkarw.cart.model.CartItemDTO;
 import com.hubertkarw.cart.service.CartItemService;
 import com.hubertkarw.cart.service.CartService;
@@ -35,23 +36,36 @@ public class CartItemController {
         return service.getCartItems(id);
     }
 
+    @Operation(summary = "Get cart item")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found cart items", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = CartItemDTO.class))})
+    })
+    @GetMapping("/{productId}")
+    public CartItemDTO getCartItem(@PathVariable long id, @PathVariable long itemId) {
+        log.info("GET /carts/{}/items/{} requested", id, itemId);
+        return service.getCartItem(id, itemId);
+    }
+
     @Operation(summary = "Add cart item")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Added cart item", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = CartItemDTO.class))})
+            @ApiResponse(responseCode = "201", description = "Added cart item", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = CartItemDTO.class))})
     })
-    @PostMapping("/add/{productId}")
-    public CartItemDTO addCartItem(@PathVariable long id, @PathVariable long productId) {
-        log.info("GET /carts/{}/items/add/{} requested", id, productId);
-        return service.addCartItem(id, productId);
+
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public CartItemDTO addCartItem(@PathVariable long id, @RequestBody CartItemCreateDTO cartItem) {
+        log.info("GET /carts/{}/items requested with body {}", id, cartItem);
+        return service.addCartItem(id, cartItem);
     }
+
     @Operation(summary = "Delete cart")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Removed cart")
     })
     @DeleteMapping("/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCartItem(@PathVariable long id, @PathVariable long productId){
+    public void deleteCartItem(@PathVariable long id, @PathVariable long productId) {
         log.info("DELETE /carts/{}/items/{} requested", id, productId);
-        service.deleteCartItem();
+        service.deleteCartItem( id, productId);
     }
 }

@@ -15,8 +15,11 @@ import java.math.BigDecimal;
 public class CartItemCustomization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private String type;
     private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "CART_ITEM_ID")
+    private Cart Cart;
 }

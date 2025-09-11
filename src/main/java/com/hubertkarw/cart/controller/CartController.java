@@ -68,36 +68,13 @@ public class CartController {
         return service.createCart(cartCreateDTO);
     }
 
-    @Operation(summary = "Update Cart")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Updated cart", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = CartDTO.class))})
-    })
-    @PutMapping("/{id}")
-    public CartDTO updateCustomization(@PathVariable long id,
-                                       @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                                               description = "Customization changed",
-                                               required = true,
-                                               content = @Content(mediaType = "application/json",
-                                                       schema = @Schema(implementation = CartCreateDTO.class),
-                                                       examples = @ExampleObject(value =
-                                                               """
-                                                                                                                   {
-                                                                       "name": "MyCart",
-                                                                       "discountCode": "XYZ-12-10"
-                                                                       }
-                                                                       """)))
-                                           @RequestBody CartCreateDTO customizationCreateDTO) {
-        log.info("PUT /carts/{} requested with body={}", id, customizationCreateDTO);
-        return service.updateCart(id, customizationCreateDTO);
-    }
-
     @Operation(summary = "Delete cart")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Removed cart")
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomization(@PathVariable long id) {
+    public void deleteCart(@PathVariable long id) {
         log.info("DELETE /carts/{} requested", id);
         service.deleteCart(id);
     }

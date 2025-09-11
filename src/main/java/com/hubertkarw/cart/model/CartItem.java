@@ -23,4 +23,7 @@ public class CartItem {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "CART_ITEM_ID")
     private List<CartItemCustomization> customizations;
+    @ManyToOne
+    @JoinColumn(name = "CART_ID")
+    private Cart cart;
 }
