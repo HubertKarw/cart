@@ -58,7 +58,7 @@ public class CartItemController {
         return service.addCartItem(id, cartItem);
     }
 
-    @Operation(summary = "Delete cart")
+    @Operation(summary = "Delete cart item")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Removed cart")
     })
