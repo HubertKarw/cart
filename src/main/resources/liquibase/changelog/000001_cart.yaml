@@ -1,0 +1,101 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: HubertKarw
+      changes:
+        - createTable:
+            tableName: CART
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: DISCOUNT_CODE
+                  type: VARCHAR(255)
+              - column:
+                  name: PRICE
+                  type: NUMERIC
+
+
+        - createTable:
+            tableName: CART_ITEM
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: TYPE
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PRICE
+                  type: NUMERIC
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CART_ID
+                  type: BIGINT
+
+        - createTable:
+            tableName: CART_ITEM_CUSTOMIZATION
+            columns:
+              - column:
+                  name: ID
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: TYPE
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PRICE
+                  type: NUMERIC
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CART_ITEM_ID
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: CART_ITEM
+            baseColumnNames: CART_ID
+            referencedTableName: CART
+            referencedColumnNames: ID
+            constraintName: fk_cart_item_cart
+
+        - addForeignKeyConstraint:
+            baseTableName: CART_ITEM_CUSTOMIZATION
+            baseColumnNames: CART_ITEM_ID
+            referencedTableName: CART_ITEM
+            referencedColumnNames: ID
+            constraintName: fk_cart_item_customization_cart_item
