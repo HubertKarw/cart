@@ -21,5 +21,9 @@ public class CartItemCustomization {
     private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "CART_ITEM_ID")
-    private Cart Cart;
+    private CartItem CartItem;
+
+    public void setCart(Cart cart) {
+        
+    }
 }

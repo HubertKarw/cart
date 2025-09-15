@@ -39,7 +39,7 @@ public class CartItemService {
         Cart cart = cartRepository.findById(id)
                 .orElseThrow(() -> new CartAppException("Cart not found", HttpStatus.NOT_FOUND));
         CartItem cartItem = mapper.toEntity(cartItemCreateDTO);
-        cartItem.getCustomizations().forEach(customization -> customization.setCart(cart));
+        cartItem.getCustomizations().forEach(customization -> customization.setCartItem(cartItem));
         cartItem.setCart(cart);
         cart.getCartItems().add(cartItem);
         BigDecimal price = cartItem.getPrice();
